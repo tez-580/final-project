@@ -9,48 +9,58 @@ COVID-19 PATIENT AID DASHBOARD
 <h1><b>BAD REQUEST</b></h1><br>  <BR><BR>
 
 use std::error::Error;
-
+<Br><br>
 use std::fmt;
-
+<Br><br>
 #[derive(Debug)]
-
+<Br><br>
 struct SuperError {
     side: SuperErrorSideKick,
 }
-
+<Br><br>
 impl fmt::Display for SuperError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> 
+
+
+fmt::
+
+<Br><br>
+Result {
         write!(f, "YOU DON'T HAVE PERMISSION TO VIEW THE PAGE")
     }
 }
-
+<Br><br>
 impl Error for SuperError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         Some(&self.side)
     }
 }
-
+<Br><br>
 #[derive(Debug)]
 struct SuperErrorSideKick;
 
 impl fmt::Display for SuperErrorSideKick {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> 
+<Br><br>
+fmt::Result {
         write!(f, "ACCESS DENIED")
     }
 }
-
+<Br><br><Br>
 impl Error for SuperErrorSideKick {}
-
+<Br><br>
 fn get_super_error() -> Result<(), SuperError> {
     Err(SuperError { side: SuperErrorSideKick })
 }
-
+<Br><br>
 fn main() {
     match get_super_error() {
         Err(e) => {
             println!("Error: {}", e);
             println!("Caused by: {}", e.source().unwrap());
         }
+<Br><br><Br><br>
+
         _ => println!("BACK TO MAIN PAGE"),
     }
 }
